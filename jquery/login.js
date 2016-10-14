@@ -5,7 +5,7 @@ $(function () {
 
   function success(res) {
     if (res.status === 'SUCCESS') {
-      res.session.setCookieAndRedirect('http://localhost:8000/');
+      res.session.setCookieAndRedirect('http://localhost:12234');
     }
   }
 

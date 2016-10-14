@@ -3,9 +3,9 @@
 
 $(function () {
 
-  var baseUrl = 'http://rain.okta1.com:1802/';
+  var baseUrl = 'http://rain.okta1.com:1802';
 
-  baseUrl = 'https://dev-148986.oktapreview.com';
+  //baseUrl = 'https://dev-148986.oktapreview.com';
 
   window.okta = {
     baseUrl: baseUrl,
