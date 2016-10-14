@@ -1,16 +1,8 @@
-/* global OktaSignIn */
-/* global baseUrl */
-/* global redirectUrl */
 /* global $ */
 
-
-var okta = window.okta = {
-  redirectUrl: redirectUrl,
-  baseUrl: baseUrl,
-  si: new OktaSignIn({baseUrl: baseUrl})
-};
-
 (function () {
+
+  var okta = window.okta;
 
   var headers = {
     'Accept': 'application/json',
