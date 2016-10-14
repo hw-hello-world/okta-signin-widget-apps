@@ -13,4 +13,5 @@
 
 # TODO
 
+- [ ] OpenID, Social Auth. (idToken?)
 - [ ] e2e testing

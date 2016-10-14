@@ -54,7 +54,7 @@
 
   function loginSuccess(options, res) {
     if (res.status === 'SUCCESS') {
-      res.session.setCookieAndRedirect(options.redirectUrl);
+      res.session.setCookieAndRedirect(options.redirectUri);
     } else {
       console.error('Login failed: ', res);
     }
@@ -81,12 +81,12 @@
   /**
    *
    * @param {String} options.baseUrl
-   * @param {String} options.redirectUrl
+   * @param {String} options.redirectUri
    */
   $.fn.oktaSignIn = function (options) {
 
     return this.each(function () {
-      var si = new OktaSignIn({baseUrl: baseUrl}),
+      var si = new OktaSignIn(options),
           opt = $.extend({}, options, {si: si, el: $(this)});
 
       bindEvents(opt);
