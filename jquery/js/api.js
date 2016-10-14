@@ -1,8 +1,16 @@
+/* global OktaSignIn */
+/* global baseUrl */
+/* global redirectUrl */
 /* global $ */
 
-$(function () {
 
-  var okta = window.okta;
+var okta = window.okta = {
+  redirectUrl: redirectUrl,
+  baseUrl: baseUrl,
+  si: new OktaSignIn({baseUrl: baseUrl})
+};
+
+(function () {
 
   var headers = {
     'Accept': 'application/json',
@@ -41,4 +49,4 @@ $(function () {
 
   window.okta.api = api;
 
-});
+})();
