@@ -12,10 +12,11 @@ window.okta = {
     clientId: '6Pze0m2vkSxRSief13K6',
     //redirectUri: 'http://hello.world.io/',
     redirectUri: redirectUri,
-    //authParams: {
+    authParams: {
+      responseType: ['code'],
       //responseType: ['id_token', 'token'],
-      //scope: ['openid', 'email', 'profile']
-    //},
+      scope: ['openid', 'email', 'profile']
+    },
     idpDisplay: 'SECONDARY',
     idps: [
       { 'type': 'FACEBOOK',
@@ -42,6 +43,11 @@ window.okta = {
     baseUrl: baseUrl,
     clientId: 'JFClyRhfHlUy86dijbMc',
     redirectUri: redirectUri,
+    authParams: {
+      responseType: ['code'],
+      //responseType: ['id_token', 'token'],
+      scopes: ['openid', 'email', 'profile']
+    },
     idpDisplay: 'SECONDARY',
     idps: [
       {
