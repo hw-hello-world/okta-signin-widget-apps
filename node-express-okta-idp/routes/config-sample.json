@@ -1,5 +1,6 @@
 {
     "baseUrl": "http://localhost:1802",
-    "clientId": "6Pze0m2vkSxRSief13K6",
-    "clientSecret": "z9VQonnCmWxOrPMD9MGiILdSs99TKAAPjrofn-0m"
+    "clientId": "xxxxxxxxxx",
+    "clientSecret": "xxxxxxxxxx",
+    "redirectUri": "http://localhost:12234/callback"
 }
