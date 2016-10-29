@@ -15,5 +15,14 @@
 *** Snap?
 *** Spock?
 
+
+* Extract logic as Plugins
+** TODO Elm module
+** TODO React component
+** TODO Closure??
+** TODO wai middleware
+** TODO yesod ??
+** TODO snap snaplet
+
 * Testing [0/1]
   - [ ] an general e2e testing?
