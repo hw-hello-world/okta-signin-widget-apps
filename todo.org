@@ -1,0 +1,19 @@
+* TODO Implementation [1/6]
+** DONE Okta as IDP with accessToken?
+   CLOSED: [2016-10-28 Fri 22:11]
+** TODO Social Auth as IDP with accessToken?
+** TODO Elm
+** TODO React
+** TODO RxJS
+** TODO Closure
+** TODO React + RxJS
+** TODO Haskell
+*** warp/wai
+*** Scotty
+*** Servant + [Vanilla JS or jQuery]
+*** Yesod?
+*** Snap?
+*** Spock?
+
+* Testing [0/1]
+  - [ ] an general e2e testing?

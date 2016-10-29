@@ -13,7 +13,4 @@
 
 # TODO
 
-- [ ] Okta as IDP with accessToken?
-- [ ] OpenID as IDP with accessToken?
-- [ ] Social Auth as IDP with accessToken?
-- [ ] e2e testing
+[TODO.org](./todo.org)
