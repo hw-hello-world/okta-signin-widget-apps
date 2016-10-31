@@ -17,7 +17,7 @@ var okta = window.okta = {
   })
 };
 
-var app = Elm.Main.fullscreen();
+const KEY_OKTA_USER = 'okta-user';
 
 function refresh() {
   window.location.reload();
@@ -32,11 +32,9 @@ function loginSuccess(xss) {
                 token: idTokenObj.idToken,
                 expiresAt: idTokenObj.expiresAt
                };
-
-    app.ports.suggestions.send([user.name]);
-
-    //LS.setItem(KEY_OKTA_USER, JSON.stringify(user));
-    //refresh();
+    localStorage.setItem(KEY_OKTA_USER, JSON.stringify(user));
+    refresh();
+    //app.ports.donelogin.send(user);
   } else {
     console.error('Login failed: ', xss);
   }
@@ -50,6 +48,22 @@ function login() {
   okta.si.renderEl({el: '#main'}, loginSuccess, logError);
 }
 
-app.ports.check.subscribe(() => {
+function logout() {
+  localStorage.removeItem(KEY_OKTA_USER);
+}
+
+var oktaUser = localStorage.getItem(KEY_OKTA_USER);
+
+if (oktaUser) {
+  oktaUser = JSON.parse(oktaUser);
+}
+
+var app = Elm.ElmMain.fullscreen({loginUser: oktaUser});
+
+app.ports.login.subscribe(() => {
   login();
+});
+
+app.ports.logout.subscribe(() => {
+  logout();
 });
