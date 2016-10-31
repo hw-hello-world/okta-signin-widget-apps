@@ -1,0 +1,24 @@
+{
+  "name": "elm-okta-idp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+      "init": "elm package install",
+      "build": "rm -rf dist && gulp build",
+      "start": "gulp"
+  },
+  "author": "Haisheng Wu <haisheng.wu@okta.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "elm": "^0.17.1",
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-elm": "^0.5.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-util": "^3.0.7"
+  },
+  "dependencies": {
+    "@okta/okta-signin-widget": "^1.8.0"
+  }
+}
