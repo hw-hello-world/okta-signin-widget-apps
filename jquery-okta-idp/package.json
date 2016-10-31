@@ -1,0 +1,16 @@
+{
+  "name": "jquery-okta-idp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@okta/okta-signin-widget": "^1.8.0",
+    "http-server": "^0.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "http-server -p 12234"
+  },
+  "author": "Haisheng Wu <haisheng.wu@okta.com>",
+  "license": "MIT"
+}

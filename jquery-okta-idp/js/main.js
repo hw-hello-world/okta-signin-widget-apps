@@ -65,27 +65,31 @@ $(function () {
   function showUserInfo(user) {
 
     var email = user.email,
+        name = user.name,
         expiresAt = user.expiresAt,
         token = user.token;
 
-    $('#main').html(`<h1>Welcome ${email} </h1>
+    $('#main').html(`<h1>Welcome ${name} </h1>
+                    <p>email: ${email}</p>
                     <p>expiresAt: ${expiresAt}</p>
                     <p>token: ${token}</p>
                     <a href="#" id="logout">Logout</a>`
                    );
   }
 
-  function loginSuccess(res) {
+  function loginSuccess(xss) {
     // TODO: create my own session via localStorage
-    if (res.status === 'SUCCESS') {
-      var user = {email: res.claims.email,
-                  token: res.idToken,
-                  expiresAt: res.expiresAt
+    if (xss.status === 'SUCCESS') {
+      var idTokenObj = xss[0],
+          user = {email: idTokenObj.claims.email,
+                  name: idTokenObj.claims.name,
+                  token: idTokenObj.idToken,
+                  expiresAt: idTokenObj.expiresAt
                  };
       LS.setItem(KEY_OKTA_USER, JSON.stringify(user));
       refresh();
     } else {
-      console.error('Login failed: ', res);
+      console.error('Login failed: ', xss);
     }
   }
 

@@ -1,8 +1,7 @@
 /* global OktaSignIn */
 
 var baseUrl = 'http://rain.okta1.com:1802';
-var redirectUri = 'http://localhost:12234';
-//baseUrl = 'https://dev-148986.oktapreview.com';
+var redirectUri = 'http://localhost:12234/';
 
 window.okta = {
   redirectUri: redirectUri,
@@ -10,11 +9,9 @@ window.okta = {
   si: new OktaSignIn({
     baseUrl: baseUrl,
     clientId: '6Pze0m2vkSxRSief13K6',
-    //redirectUri: 'http://hello.world.io/',
     redirectUri: redirectUri,
     authParams: {
-      responseType: ['code'],
-      //responseType: ['id_token', 'token'],
+      responseType: ['id_token', 'token'],
       scope: ['openid', 'email', 'profile']
     },
     idpDisplay: 'SECONDARY',
@@ -44,8 +41,7 @@ window.okta = {
     clientId: 'JFClyRhfHlUy86dijbMc',
     redirectUri: redirectUri,
     authParams: {
-      responseType: ['code'],
-      //responseType: ['id_token', 'token'],
+      responseType: ['id_token', 'token'],
       scopes: ['openid', 'email', 'profile']
     },
     idpDisplay: 'SECONDARY',
