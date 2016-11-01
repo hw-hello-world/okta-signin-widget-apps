@@ -65,13 +65,14 @@ update msg model =
 view : Model -> Html Msg
 view model =
     case model.loginUser of
-        Just loginUser -> mainView loginUser
+        Just loginUser -> helloUserView loginUser
         Nothing -> loginView model
 
-mainView : LoginUser -> Html Msg
-mainView user =
+helloUserView : LoginUser -> Html Msg
+helloUserView user =
     div [ id "main"]
         [ h1 [] [text ("Hello " ++ user.name)]
+        , p [] [text ("email: " ++ user.email)]
         , a [ href "#", onClick Logout] [text "Logout"]
         ]
 

@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
       "init": "elm package install",
-      "build": "rm -rf dist && gulp build",
-      "start": "gulp"
+      "clean": "rm -rf dist"
   },
   "author": "Haisheng Wu <haisheng.wu@okta.com>",
   "license": "MIT",

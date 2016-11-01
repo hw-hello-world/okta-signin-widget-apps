@@ -2,7 +2,7 @@
 
 1. Tasks, [[http://package.elm-lang.org/packages/elm-lang/core/4.0.5/Task][API]], [[http://elm-lang.org/blog/announce/0.15][Release Notes]]
 2. [[http://elm-lang.org/blog/farewell-to-frp][Subscription]]
-3. `Cmd`
+3. ~Cmd~
 4. port, JS interop
 
 * Understand Elm
@@ -14,6 +14,7 @@
   4. ~Model~ is actually sort of ~State~
 
 #+BEGIN_SRC plantuml :file data/elm-arch-mvc.svg
+title: MVC
 
 [Model] -> [View] : view
 note top: "view : Model -> Html Msg"
@@ -28,7 +29,8 @@ note top: "update : Msg -> Model -> (Model, Cmd Msg)
 #+RESULTS:
 [[file:data/elm-arch-mvc.svg]]
 
-#+BEGIN_SRC plantuml :file data/elm-arch-io-js.svg
+#+BEGIN_SRC plantuml :file data/elm-arch-interop-js.svg
+title: Interop JS
 
 [(Model, Cmd Msg)] -> [Cmd Msg]: generate
 [Cmd Msg] ..> [JS] : listenTo
@@ -47,7 +49,7 @@ note top: "update : Msg -> Model -> (Model, Cmd Msg)
 
 * Implementation Details
 ** Approach 1
-#+BEGIN_SRC plantuml :file data/elm-okta-localstorage.svg
+#+BEGIN_SRC plantuml :file data/okta-elm-localstorage.svg
 title: Elm + Okta + LocalStorage
 autonumber
 
@@ -91,3 +93,82 @@ deactivate JS
 
 #+RESULTS:
 [[file:data/elm-okta-localstorage.svg]]
+
+** approach 2
+#+begin_src plantuml :file data/okta-elm-status.svg
+title: Elm + Okta
+autonumber
+
+JS -> Elm: <<fullscreen>>
+activate JS
+activate Elm
+
+Elm -> Elm: <<model status>>
+
+alt isLoginStatus
+Elm -> Elm: <<view - show user info>>
+
+else isNotLoginStatus
+
+Elm -\ JS: <<show login>>
+activate JS
+JS -\ "Okta Signin Widget": <<renderEl>>
+activate "Okta Signin Widget"
+"Okta Signin Widget" -> Okta: <<signin>>
+activate Okta
+Okta --> "Okta Signin Widget": <<token + profile>>
+deactivate Okta
+"Okta Signin Widget" --> JS: <<token + profile>>
+deactivate "Okta Signin Widget"
+JS --\ Elm: <<user>>
+Elm -> Elm: <<view - show user info>>
+
+end
+
+Elm -> JS: <<void>>
+deactivate Elm
+deactivate JS
+
+#+END_SRC
+
+#+RESULTS:
+[[file:data/okta-elm-status.svg]]
+
+** approach 3
+#+begin_src plantuml :file data/elm-ffi-okta.svg
+
+title: Elm FFI Okta
+autonumber
+
+Elm -> Elm: <<fullscreen>>
+activate Elm
+
+Elm -> Elm: <<model status>>
+
+alt isLoginStatus
+Elm -> Elm: <<view - show user info>>
+
+else isNotLoginStatus
+
+Elm -> OktaSignIn.elm: <<show login>>
+activate OktaSignIn.elm
+OktaSignIn.elm -> OktaSignin.js
+activate OktaSignin.js
+OktaSignin.js -> Okta: <<signin>>
+activate Okta
+Okta --> OktaSignin.js:: <<token + profile>>
+deactivate Okta
+OktaSignin.js --> OktaSignIn.elm: <<token + profile>>
+deactivate OktaSignin.js
+OktaSignIn.elm --> Elm: <<token + profile>>
+deactivate OktaSignIn.elm
+Elm -> Elm: <<view - show user info>>
+
+end
+
+deactivate Elm
+
+#+END_SRC
+
+#+RESULTS:
+[[file:data/elm-ffi-okta.svg]]
