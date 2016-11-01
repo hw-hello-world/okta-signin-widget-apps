@@ -43,9 +43,11 @@ title: Interop JS
 #+RESULTS:
 [[file:data/elm-arch-io-js.svg]]
 
-* TODO [0/1]
+* TODO [0/3]
 
 1. [ ] pure ELM by creating FFI OktaSignin ?
+2. [ ] scale Elm application (multiple apps)?
+3. [ ] doc for writting an FFI module?
 
 * Implementation Details
 ** Approach 1
@@ -95,6 +97,9 @@ deactivate JS
 [[file:data/elm-okta-localstorage.svg]]
 
 ** approach 2
+
+   - *Highlight*: persistent data to localstorage
+
 #+begin_src plantuml :file data/okta-elm-status.svg
 title: Elm + Okta
 autonumber

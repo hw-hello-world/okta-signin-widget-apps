@@ -76,16 +76,16 @@ gulp.task('okta', function() {
 
 // Watch for changes and compile
 gulp.task('watch1', function() {
-  gulp.watch(src1.elm, ['elm']);
-  gulp.watch(src1.static, ['static']);
+  gulp.watch(src1.elm, ['elm1']);
+  gulp.watch(src1.static, ['static1']);
 });
 gulp.task('watch2', function() {
-  gulp.watch(src2.elm, ['elm']);
-  gulp.watch(src2.static, ['static']);
+  gulp.watch(src2.elm, ['elm2']);
+  gulp.watch(src2.static, ['static2']);
 });
 gulp.task('watch3', function() {
-  gulp.watch(src3.elm, ['elm']);
-  gulp.watch(src3.static, ['static']);
+  gulp.watch(src3.elm, ['elm3']);
+  gulp.watch(src3.static, ['static3']);
 });
 
 // Local server

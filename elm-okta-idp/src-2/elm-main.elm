@@ -31,12 +31,20 @@ type alias LoginUser =
     }
 
 type alias Model =
-    { loginUser : Maybe LoginUser
+    { loginUser : Maybe (Result Error LoginUser)
+    }
+
+type alias Error = String
+
+type alias AuthResponse =
+    { profile: Maybe LoginUser
+    , error: Error
     }
 
 init : ProgramOptions -> (Model, Cmd Msg)
-init opt =
-  (Model opt.loginUser, Cmd.none)
+init opt = case opt.loginUser of
+               Just user -> (Model (Just (Ok user)), Cmd.none)
+               Nothing -> (Model Nothing, Cmd.none)
 
 
 -- UPDATE
@@ -44,28 +52,31 @@ init opt =
 type Msg
   = Login
   | Logout
-  | DoneLogin LoginUser
+  | LoginResult AuthResponse
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     Login ->
-        ( model, login "" )
+        ( model, login ())
 
     Logout ->
-        ( Model Nothing, logout "" )
+        (Model Nothing, Cmd.none )
 
-    DoneLogin user ->
-      ( Model (Just user), Cmd.none )
-
+    LoginResult authResponse ->
+        case authResponse.profile of
+            Nothing -> (Model (Just (Err authResponse.error)), Cmd.none)
+            Just profile -> ( Model (Just (Ok profile)), Cmd.none )
 
 -- VIEW
 
 view : Model -> Html Msg
 view model =
     case model.loginUser of
-        Just loginUser -> helloUserView loginUser
+        Just loginResponse -> case loginResponse of
+                              Ok loginUser -> helloUserView loginUser
+                              Err error -> helloErrorView error
         Nothing -> loginView model
 
 helloUserView : LoginUser -> Html Msg
@@ -75,6 +86,10 @@ helloUserView user =
         , p [] [text ("email: " ++ user.email)]
         , a [ href "#", onClick Logout] [text "Logout"]
         ]
+
+helloErrorView : Error -> Html Msg
+helloErrorView error =
+    p [] [text error]
 
 loginView : Model -> Html Msg
 loginView model =
@@ -86,8 +101,8 @@ loginView model =
 
 -- PORTs
 
-port login : String -> Cmd msg
-port logout : String -> Cmd msg
+port login : () -> Cmd msg
+port loginResult : (AuthResponse -> msg) -> Sub msg
 
 subscriptions : Model -> Sub Msg
-subscriptions model = Sub.none
+subscriptions model = loginResult LoginResult
