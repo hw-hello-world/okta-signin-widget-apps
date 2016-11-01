@@ -17,8 +17,6 @@ var okta = window.okta = {
   })
 };
 
-const KEY_OKTA_USER = 'okta-user';
-
 function loginSuccess(xss) {
   var portResponse = {};
 
@@ -55,17 +53,7 @@ function login() {
   okta.si.renderEl({el: '#main'}, loginSuccess, logError);
 }
 
-function logout() {
-  localStorage.removeItem(KEY_OKTA_USER);
-}
-
-var oktaUser = localStorage.getItem(KEY_OKTA_USER);
-
-if (oktaUser) {
-  oktaUser = JSON.parse(oktaUser);
-}
-
-var app = Elm.ElmMain.fullscreen({loginUser: oktaUser});
+var app = Elm.ElmMain.fullscreen();
 
 app.ports.login.subscribe(() => {
   login();

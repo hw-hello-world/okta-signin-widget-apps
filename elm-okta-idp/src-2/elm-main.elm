@@ -6,9 +6,9 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import String
 
-main : Program ProgramOptions
+main : Program Never
 main =
-    App.programWithFlags
+    App.program
         { init = init
         , view = view
         , update = update
@@ -17,9 +17,6 @@ main =
 
 
 -- MODEL
-type alias ProgramOptions =
-    { loginUser : Maybe LoginUser
-    }
 
 type alias Token = String
 
@@ -41,10 +38,8 @@ type alias AuthResponse =
     , error: Error
     }
 
-init : ProgramOptions -> (Model, Cmd Msg)
-init opt = case opt.loginUser of
-               Just user -> (Model (Just (Ok user)), Cmd.none)
-               Nothing -> (Model Nothing, Cmd.none)
+init : (Model, Cmd Msg)
+init = (Model Nothing, Cmd.none)
 
 
 -- UPDATE

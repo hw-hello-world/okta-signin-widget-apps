@@ -43,11 +43,19 @@ title: Interop JS
 #+RESULTS:
 [[file:data/elm-arch-io-js.svg]]
 
-* TODO [0/3]
 
-1. [ ] pure ELM by creating FFI OktaSignin ?
-2. [ ] scale Elm application (multiple apps)?
-3. [ ] doc for writting an FFI module?
+* TODO Tasks [2/3]
+
+1. [ ] Webpack v.s. gulp ??
+2. [X] pure ELM by creating FFI OktaSignin ?
+   - [X] doc for writting an FFI module?
+   - https://elmseeds.thaterikperson.com/native-modules
+   - turns out it's preferred to use ~port~
+3. [X] scale Elm application (multiple apps)?
+   - [[https://guide.elm-lang.org/architecture/][latest 0.17 archtecture]]
+   - single giant ~Model~ per page
+   - single ~Msg~ per page
+   - need try an bigger project to see how it feels like
 
 * Implementation Details
 ** Approach 1
@@ -98,7 +106,7 @@ deactivate JS
 
 ** approach 2
 
-   - *Highlight*: persistent data to localstorage
+   - *Highlight TODO*: persistent data to localstorage
 
 #+begin_src plantuml :file data/okta-elm-status.svg
 title: Elm + Okta
@@ -177,3 +185,6 @@ deactivate Elm
 
 #+RESULTS:
 [[file:data/elm-ffi-okta.svg]]
+* Links
+  - [[http://tech.noredink.com/][NoRedInk Blog]]
+  - [[http://www.gizra.com/content/thinking-choosing-elm/][Thinking choosing Elm]]
