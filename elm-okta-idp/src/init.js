@@ -34,7 +34,6 @@ function loginSuccess(xss) {
                };
     localStorage.setItem(KEY_OKTA_USER, JSON.stringify(user));
     refresh();
-    //app.ports.donelogin.send(user);
   } else {
     console.error('Login failed: ', xss);
   }

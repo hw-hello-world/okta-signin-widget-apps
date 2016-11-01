@@ -60,16 +60,6 @@ update msg model =
       ( Model (Just user), Cmd.none )
 
 
--- PORTs
-
-port login : String -> Cmd msg
-port logout : String -> Cmd msg
-port donelogin : (LoginUser -> msg) -> Sub msg
-
-subscriptions : Model -> Sub Msg
-subscriptions model = donelogin DoneLogin
-
-
 -- VIEW
 
 view : Model -> Html Msg
@@ -91,3 +81,12 @@ loginView model =
         [ h1 [] [text "Hello Okta Signin Widget"]
         , a [ href "#", onClick Login ] [text "Login"]
         ]
+
+-- PORTs
+
+port login : String -> Cmd msg
+port logout : String -> Cmd msg
+port donelogin : (LoginUser -> msg) -> Sub msg
+
+subscriptions : Model -> Sub Msg
+subscriptions model = donelogin DoneLogin

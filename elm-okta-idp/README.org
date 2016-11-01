@@ -1,0 +1,93 @@
+* Some concepts
+
+1. Tasks, [[http://package.elm-lang.org/packages/elm-lang/core/4.0.5/Task][API]], [[http://elm-lang.org/blog/announce/0.15][Release Notes]]
+2. [[http://elm-lang.org/blog/farewell-to-frp][Subscription]]
+3. `Cmd`
+4. port, JS interop
+
+* Understand Elm
+
+  1. ~view : Model -> Html msg~ is one direction from Model to View
+  2. ~Html msg~ means View could generate ~Msg~ and ~update: Msg ->
+     Model -> Model~ will turn it into an /new/ Model
+  3. ~init~ create an inital ~Model~
+  4. ~Model~ is actually sort of ~State~
+
+#+BEGIN_SRC plantuml :file data/elm-arch-mvc.svg
+
+[Model] -> [View] : view
+note top: "view : Model -> Html Msg"
+[View] ..> [Msg]
+[Msg] ..> [Elm Platform] : listenTo
+[Elm Platform] -> [(Model, Cmd Msg)] : update
+note top: "update : Msg -> Model -> (Model, Cmd Msg)
+[(Model, Cmd Msg)] -> [Model]: generate
+
+#+END_SRC
+
+#+RESULTS:
+[[file:data/elm-arch-mvc.svg]]
+
+#+BEGIN_SRC plantuml :file data/elm-arch-io-js.svg
+
+[(Model, Cmd Msg)] -> [Cmd Msg]: generate
+[Cmd Msg] ..> [JS] : listenTo
+[JS] -> [Sub Msg] : send
+[Cmd Msg] -> [Msg]: generate
+[Sub Msg] -> [Msg]: generate
+
+#+END_SRC
+
+#+RESULTS:
+[[file:data/elm-arch-io-js.svg]]
+
+* TODO [0/1]
+
+1. [ ] pure ELM by creating FFI OktaSignin ?
+
+* Implementation Details
+** Approach 1
+#+BEGIN_SRC plantuml :file data/elm-okta-localstorage.svg
+title: Elm + Okta + LocalStorage
+autonumber
+
+JS -> LocalStorage: <<get user>>
+activate LocalStorage
+LocalStorage --> JS: <<user>>
+deactivate LocalStorage
+
+JS -> Elm: <<fullscreen(user)>>
+activate Elm
+
+alt user == null
+
+Elm -\ JS: <<show login>>
+activate JS
+JS -\ "Okta Signin Widget": <<renderEl>>
+activate "Okta Signin Widget"
+"Okta Signin Widget" -> Okta: <<signin>>
+activate Okta
+Okta --> "Okta Signin Widget": <<token + profile>>
+deactivate Okta
+"Okta Signin Widget" --> JS: <<token + profile>>
+deactivate "Okta Signin Widget"
+JS -> LocalStorage: <<set user>>
+activate LocalStorage
+LocalStorage --> JS: <<void>>
+deactivate LocalStorage
+JS -\ Window: <<refresh>>
+activate Window
+deactivate Window
+
+else user != null
+Elm -> Elm: <<show user info>>
+
+end
+
+deactivate Elm
+deactivate JS
+
+#+END_SRC
+
+#+RESULTS:
+[[file:data/elm-okta-localstorage.svg]]
