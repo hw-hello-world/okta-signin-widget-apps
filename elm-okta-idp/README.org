@@ -14,7 +14,7 @@
   3. ~init~ create an inital ~Model~
   4. ~Model~ is actually sort of ~State~
 
-#+BEGIN_SRC plantuml :file data/elm-arch-mvc.svg :results output silent
+#+BEGIN_SRC plantuml :file data/elm-arch-mvc.png :results output silent
 title: MVC
 
 [Model] -> [View] : view
@@ -30,9 +30,9 @@ note top: "update : Msg -> Model -> (Model, Cmd Msg)
 
 #+CAPTION: Elm Arch MVC
 #+NAME:   fig:elm-arch-mvc.svg
-[[./data/elm-arch-mvc.svg]]
+[[./data/elm-arch-mvc.png]]
 
-#+BEGIN_SRC plantuml :file data/elm-arch-interop-js.svg :results output silent
+#+BEGIN_SRC plantuml :file data/elm-arch-interop-js.png :results output silent
 title: Interop JS
 
 [(Model, Cmd Msg)] -> [Cmd Msg]: generate
@@ -45,7 +45,7 @@ title: Interop JS
 
 #+CAPTION: Elm Arch IO with JavaScript
 #+NAME:   fig:elm-arch-interop-js.svg
-[[./data/elm-arch-interop-js.svg]]
+[[./data/elm-arch-interop-js.png]]
 
 
 * TODO Tasks [3/3]
