@@ -14,6 +14,10 @@
   3. ~init~ create an inital ~Model~
   4. ~Model~ is actually sort of ~State~
 
+#+CAPTION: Elm Arch MVC
+#+NAME:   fig:elm-arch-mvc.svg
+[[./data/elm-arch-mvc.png]]
+
 #+BEGIN_SRC plantuml :file data/elm-arch-mvc.png :results output silent
 title: MVC
 
@@ -28,11 +32,11 @@ note top: "update : Msg -> Model -> (Model, Cmd Msg)
 #+END_SRC
 
 
-#+CAPTION: Elm Arch MVC
-#+NAME:   fig:elm-arch-mvc.svg
-[[./data/elm-arch-mvc.png]]
+#+CAPTION: Elm Arch IO with JavaScript
+#+NAME:   fig:elm-arch-interop-js.svg
+[[./data/elm-arch-interop-js.png]]
 
-#+BEGIN_SRC plantuml :file data/elm-arch-interop-js.png :results output silent
+#+BEGIN_SRC plantuml :file data/elm-arch-interop-js.png :results silent
 title: Interop JS
 
 [(Model, Cmd Msg)] -> [Cmd Msg]: generate
@@ -42,10 +46,6 @@ title: Interop JS
 [Sub Msg] -> [Msg]: generate
 
 #+END_SRC
-
-#+CAPTION: Elm Arch IO with JavaScript
-#+NAME:   fig:elm-arch-interop-js.svg
-[[./data/elm-arch-interop-js.png]]
 
 
 * TODO Tasks [3/3]
@@ -69,7 +69,12 @@ title: Interop JS
 
 * Implementation Details
 ** Approach 1
-#+BEGIN_SRC plantuml :file data/okta-elm-localstorage.svg
+
+#+CAPTION: Elm Okta LocalStorage
+#+NAME: fig:elm-okta-localstorage.png
+[[./data/okta-elm-localstorage.png]]
+
+#+BEGIN_SRC plantuml :file data/okta-elm-localstorage.png :results silent
 title: Elm + Okta + LocalStorage
 autonumber
 
@@ -111,14 +116,16 @@ deactivate JS
 
 #+END_SRC
 
-#+RESULTS:
-[[file:data/elm-okta-localstorage.svg]]
 
 ** Approach 2
 
    - *Highlight TODO*: persistent data to localstorage
 
-#+BEGIN_SRC plantuml :file data/okta-elm-status.svg
+#+CAPTION: Okta Elm Status and LocalStorage
+#+NAME: fig:okta-elm-status.png
+[[./data/okta-elm-status.png]]
+
+#+BEGIN_SRC plantuml :file data/okta-elm-status.png :results silent
 title: Elm + Okta
 autonumber
 
@@ -153,9 +160,6 @@ deactivate Elm
 deactivate JS
 
 #+END_SRC
-
-#+RESULTS:
-[[file:data/okta-elm-status.svg]]
 
 ** Approach 3 - rewrite okta-signin-widget in Elm. 😈 🌱
 
