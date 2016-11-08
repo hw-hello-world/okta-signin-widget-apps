@@ -1,9 +1,10 @@
 * Some concepts
 
-1. Tasks, [[http://package.elm-lang.org/packages/elm-lang/core/4.0.5/Task][API]], [[http://elm-lang.org/blog/announce/0.15][Release Notes]]
-2. [[http://elm-lang.org/blog/farewell-to-frp][Subscription]]
-3. ~Cmd~
-4. port, JS interop
+  1. Tasks, [[http://package.elm-lang.org/packages/elm-lang/core/4.0.5/Task][API]], [[http://elm-lang.org/blog/announce/0.15][Release Notes]]
+  2. [[http://elm-lang.org/blog/farewell-to-frp][Subscription]]
+  3. ~Cmd~
+  4. port, JS interop
+
 
 * Understand Elm
 
@@ -13,7 +14,7 @@
   3. ~init~ create an inital ~Model~
   4. ~Model~ is actually sort of ~State~
 
-#+BEGIN_SRC plantuml :file data/elm-arch-mvc.svg
+#+BEGIN_SRC plantuml :file data/elm-arch-mvc.svg :results output silent
 title: MVC
 
 [Model] -> [View] : view
@@ -26,10 +27,12 @@ note top: "update : Msg -> Model -> (Model, Cmd Msg)
 
 #+END_SRC
 
-#+RESULTS:
-[[file:data/elm-arch-mvc.svg]]
 
-#+BEGIN_SRC plantuml :file data/elm-arch-interop-js.svg
+#+CAPTION: Elm Arch MVC
+#+NAME:   fig:elm-arch-mvc.svg
+[[./data/elm-arch-mvc.svg]]
+
+#+BEGIN_SRC plantuml :file data/elm-arch-interop-js.svg :results output silent
 title: Interop JS
 
 [(Model, Cmd Msg)] -> [Cmd Msg]: generate
@@ -40,27 +43,29 @@ title: Interop JS
 
 #+END_SRC
 
-#+RESULTS:
-[[file:data/elm-arch-io-js.svg]]
+#+CAPTION: Elm Arch IO with JavaScript
+#+NAME:   fig:elm-arch-interop-js.svg
+[[./data/elm-arch-interop-js.svg]]
 
 
-* TODO Tasks [3/4]
+* TODO Tasks [3/3]
 
-1. [ ] Webpack v.s. gulp ??
-2. [X] pure ELM by creating FFI OktaSignin ?
-3. [X] doc for writting an FFI module?
-   - https://elmseeds.thaterikperson.com/native-modules
-   - https://github.com/NoRedInk/take-home/wiki/Writing-your-first-Elm-Native-module
-   - https://github.com/NoRedInk/take-home/wiki/Writing-Native
-   - turns out it's preferred to use ~port~
-   - [[https://groups.google.com/forum/#!topic/elm-dev/1JW6wknkDIo][Evan is quite conservative]] regardling native binding plus an
-     public Native API in Elm.
-   - I feel the principle is build everything in Elm
-4. [X] scale Elm application (multiple apps)?
-   - [[https://guide.elm-lang.org/architecture/][latest 0.17 archtecture]]
-   - single giant ~Model~ per page
-   - single ~Msg~ per page
-   - need try an bigger project to see how it feels like
+
+  1. MAYBE: Webpack v.s. gulp ??
+  2. [X] pure ELM by creating FFI OktaSignin ?
+  3. [X] doc for writting an FFI module?
+     - https://elmseeds.thaterikperson.com/native-modules
+     - https://github.com/NoRedInk/take-home/wiki/Writing-your-first-Elm-Native-module
+     - https://github.com/NoRedInk/take-home/wiki/Writing-Native
+     - turns out it's preferred to use ~port~
+     - [[https://groups.google.com/forum/#!topic/elm-dev/1JW6wknkDIo][Evan is quite conservative]] regardling native binding plus an
+       public Native API in Elm.
+     - I feel the principle is build everything in Elm
+  4. [X] scale Elm application (multiple apps)?
+     - [[https://guide.elm-lang.org/architecture/][latest 0.17 archtecture]]
+     - single giant ~Model~ per page
+     - single ~Msg~ per page
+     - need try an bigger project to see how it feels like
 
 * Implementation Details
 ** Approach 1
@@ -109,11 +114,11 @@ deactivate JS
 #+RESULTS:
 [[file:data/elm-okta-localstorage.svg]]
 
-** approach 2
+** Approach 2
 
    - *Highlight TODO*: persistent data to localstorage
 
-#+begin_src plantuml :file data/okta-elm-status.svg
+#+BEGIN_SRC plantuml :file data/okta-elm-status.svg
 title: Elm + Okta
 autonumber
 
@@ -152,8 +157,9 @@ deactivate JS
 #+RESULTS:
 [[file:data/okta-elm-status.svg]]
 
-** approach 3 - rewrite okta-signin-widget in Elm. 😈 🌱
+** Approach 3 - rewrite okta-signin-widget in Elm. 😈 🌱
 
 * Links
+
   - [[http://tech.noredink.com/][NoRedInk Blog]]
   - [[http://www.gizra.com/content/thinking-choosing-elm/][Thinking choosing Elm]]
