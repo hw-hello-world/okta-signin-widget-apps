@@ -44,14 +44,19 @@ title: Interop JS
 [[file:data/elm-arch-io-js.svg]]
 
 
-* TODO Tasks [2/3]
+* TODO Tasks [3/4]
 
 1. [ ] Webpack v.s. gulp ??
 2. [X] pure ELM by creating FFI OktaSignin ?
-   - [X] doc for writting an FFI module?
+3. [X] doc for writting an FFI module?
    - https://elmseeds.thaterikperson.com/native-modules
+   - https://github.com/NoRedInk/take-home/wiki/Writing-your-first-Elm-Native-module
+   - https://github.com/NoRedInk/take-home/wiki/Writing-Native
    - turns out it's preferred to use ~port~
-3. [X] scale Elm application (multiple apps)?
+   - [[https://groups.google.com/forum/#!topic/elm-dev/1JW6wknkDIo][Evan is quite conservative]] regardling native binding plus an
+     public Native API in Elm.
+   - I feel the principle is build everything in Elm
+4. [X] scale Elm application (multiple apps)?
    - [[https://guide.elm-lang.org/architecture/][latest 0.17 archtecture]]
    - single giant ~Model~ per page
    - single ~Msg~ per page
@@ -147,44 +152,8 @@ deactivate JS
 #+RESULTS:
 [[file:data/okta-elm-status.svg]]
 
-** approach 3
-#+begin_src plantuml :file data/elm-ffi-okta.svg
+** approach 3 - rewrite okta-signin-widget in Elm. 😈 🌱
 
-title: Elm FFI Okta
-autonumber
-
-Elm -> Elm: <<fullscreen>>
-activate Elm
-
-Elm -> Elm: <<model status>>
-
-alt isLoginStatus
-Elm -> Elm: <<view - show user info>>
-
-else isNotLoginStatus
-
-Elm -> OktaSignIn.elm: <<show login>>
-activate OktaSignIn.elm
-OktaSignIn.elm -> OktaSignin.js
-activate OktaSignin.js
-OktaSignin.js -> Okta: <<signin>>
-activate Okta
-Okta --> OktaSignin.js:: <<token + profile>>
-deactivate Okta
-OktaSignin.js --> OktaSignIn.elm: <<token + profile>>
-deactivate OktaSignin.js
-OktaSignIn.elm --> Elm: <<token + profile>>
-deactivate OktaSignIn.elm
-Elm -> Elm: <<view - show user info>>
-
-end
-
-deactivate Elm
-
-#+END_SRC
-
-#+RESULTS:
-[[file:data/elm-ffi-okta.svg]]
 * Links
   - [[http://tech.noredink.com/][NoRedInk Blog]]
   - [[http://www.gizra.com/content/thinking-choosing-elm/][Thinking choosing Elm]]

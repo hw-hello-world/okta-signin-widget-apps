@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>README</title>
-<!-- 2016-10-31 Mon 17:59 -->
+<!-- 2016-11-01 Tue 13:11 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="Haisheng Wu">
@@ -142,14 +142,15 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#sec-1">1. Some concepts</a></li>
 <li><a href="#sec-2">2. Understand Elm</a></li>
-<li><a href="#sec-3">3. <span class="todo TODO">TODO</span> <code>[0/1]</code></a></li>
+<li><a href="#sec-3">3. <span class="todo TODO">TODO</span> Tasks <code>[3/4]</code></a></li>
 <li><a href="#sec-4">4. Implementation Details</a>
 <ul>
 <li><a href="#sec-4-1">4.1. Approach 1</a></li>
 <li><a href="#sec-4-2">4.2. approach 2</a></li>
-<li><a href="#sec-4-3">4.3. approach 3</a></li>
+<li><a href="#sec-4-3">4.3. approach 3 - rewrite okta-signin-widget in Elm. 😈 🌱</a></li>
 </ul>
 </li>
+<li><a href="#sec-5">5. Links</a></li>
 </ul>
 </div>
 </nav>
@@ -198,11 +199,43 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
+
 <div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> <span class="todo TODO">TODO</span> <code>[0/1]</code></h2>
+<h2 id="sec-3"><span class="section-number-2">3</span> <span class="todo TODO">TODO</span> Tasks <code>[3/4]</code></h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
-<li><code>[&#xa0;]</code> pure ELM by creating FFI OktaSignin ?
+<li><code>[&#xa0;]</code> Webpack v.s. gulp ??
+</li>
+<li><code>[X]</code> pure ELM by creating FFI OktaSignin ?
+</li>
+<li><code>[X]</code> doc for writting an FFI module?
+<ul class="org-ul">
+<li><a href="https://elmseeds.thaterikperson.com/native-modules">https://elmseeds.thaterikperson.com/native-modules</a>
+</li>
+<li><a href="https://github.com/NoRedInk/take-home/wiki/Writing-your-first-Elm-Native-module">https://github.com/NoRedInk/take-home/wiki/Writing-your-first-Elm-Native-module</a>
+</li>
+<li><a href="https://github.com/NoRedInk/take-home/wiki/Writing-Native">https://github.com/NoRedInk/take-home/wiki/Writing-Native</a>
+</li>
+<li>turns out it's preferred to use <code>port</code>
+</li>
+<li><a href="https://groups.google.com/forum/#!topic/elm-dev/1JW6wknkDIo">Evan is quite conservative</a> regardling native binding plus an
+public Native API in Elm.
+</li>
+<li>I feel the principle is build everything in Elm
+</li>
+</ul>
+</li>
+<li><code>[X]</code> scale Elm application (multiple apps)?
+<ul class="org-ul">
+<li><a href="https://guide.elm-lang.org/architecture/">latest 0.17 archtecture</a>
+</li>
+<li>single giant <code>Model</code> per page
+</li>
+<li>single <code>Msg</code> per page
+</li>
+<li>need try an bigger project to see how it feels like
+</li>
+</ul>
 </li>
 </ol>
 </div>
@@ -225,6 +258,11 @@ for the JavaScript code in this tag.
 <div id="outline-container-sec-4-2" class="outline-3">
 <h3 id="sec-4-2"><span class="section-number-3">4.2</span> approach 2</h3>
 <div class="outline-text-3" id="text-4-2">
+<ul class="org-ul">
+<li><b>Highlight TODO</b>: persistent data to localstorage
+</li>
+</ul>
+
 
 <figure>
 <p><img src="data/okta-elm-status.svg" alt="okta-elm-status.svg">
@@ -234,20 +272,25 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="outline-container-sec-4-3" class="outline-3">
-<h3 id="sec-4-3"><span class="section-number-3">4.3</span> approach 3</h3>
-<div class="outline-text-3" id="text-4-3">
-
-<figure>
-<p><img src="data/elm-ffi-okta.svg" alt="elm-ffi-okta.svg">
-</p>
-</figure>
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> approach 3 - rewrite okta-signin-widget in Elm. 😈 🌱</h3>
 </div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Links</h2>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li><a href="http://tech.noredink.com/">NoRedInk Blog</a>
+</li>
+<li><a href="http://www.gizra.com/content/thinking-choosing-elm/">Thinking choosing Elm</a>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Haisheng Wu</p>
-<p class="date">Created: 2016-10-31 Mon 17:59</p>
+<p class="date">Created: 2016-11-01 Tue 13:11</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
