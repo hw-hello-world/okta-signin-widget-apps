@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {browserHistory} from 'react-router';
 
 import Signin from '@okta/okta-signin-widget';
 
@@ -13,21 +14,22 @@ class OktaSigninWidget extends Component {
     this.renderSigninForm();
   }
 
-  // TODO: "soft refresh" page to show login users.
   loginSuccess(xss) {
+    var user;
+
     if (xss.status === 'SUCCESS') {
-      var idTokenObj = xss[0],
-          user = {email: idTokenObj.claims.email,
-                  name: idTokenObj.claims.name,
-                  token: idTokenObj.idToken,
-                  expiresAt: idTokenObj.expiresAt
-                 };
-      console.log(user);
-      return user;
+      var idTokenObj = xss[0];
+      user = {email: idTokenObj.claims.email,
+              name: idTokenObj.claims.name,
+              token: idTokenObj.idToken,
+              expiresAt: idTokenObj.expiresAt
+             };
     } else {
       console.error('Login failed: ', xss);
-      return null;
     }
+
+    this.props.loginCallback(user);
+
   }
 
   renderSigninForm() {
@@ -52,12 +54,21 @@ class OktaSigninWidget extends Component {
 }
 
 class Login extends Component {
+
+  loginCallback(user) {
+    if (user) {
+      console.log(user);
+      localStorage.setItem('okta-user', JSON.stringify(user));
+      browserHistory.push('/');
+    }
+  }
+
   render() {
     return (
-      <div>
+        <div>
         <h1>Here is the fancy Signin Widget</h1>
-        <OktaSigninWidget />
-      </div>
+        <OktaSigninWidget loginCallback={this.loginCallback.bind(this)} />
+        </div>
     );
   }
 }
