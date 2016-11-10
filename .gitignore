@@ -1,10 +1,16 @@
+## JavaScript
+
 node_modules
 config.json
 config-trex.json
 dist
 *.tex
 
+## Elm
+
 elm-stuff
 repl-temp*.elm
 README.html
 
+## Haskell 
+.stack-work

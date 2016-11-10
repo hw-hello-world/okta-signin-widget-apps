@@ -1,12 +1,12 @@
-* TODO Implementation [1/6]
+* TODO Implementation [2/6]
 ** DONE Okta as IDP with accessToken?
    CLOSED: [2016-10-28 Fri 22:11]
 ** TODO Social Auth as IDP with accessToken?
-** TODO Elm
-** TODO React
-** TODO RxJS
+** DONE Elm
+   CLOSED: [2016-11-09 Wed 15:54]
+** TODO React [0/1]
+   - [ ] Understand React Router and Redux
 ** TODO Closure
-** TODO React + RxJS
 ** TODO Haskell
 *** warp/wai
 *** Scotty
@@ -24,5 +24,6 @@
 ** TODO yesod ??
 ** TODO snap snaplet
 
-* Testing [0/1]
+* Testing [0/2]
   - [ ] an general e2e testing?
+  - [ ] manual testing MFA
