@@ -8,6 +8,8 @@
    - [ ] Understand React Router and Redux
 ** TODO Closure
 ** TODO Haskell
+   - [ ] mustache binding?
+
 *** warp/wai
 *** Scotty
 *** Servant + [Vanilla JS or jQuery]

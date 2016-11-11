@@ -2,7 +2,7 @@
 
 node_modules
 config.json
-config-trex.json
+config.trex.json
 dist
 *.tex
 
