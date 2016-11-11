@@ -1,9 +1,13 @@
+/* global baseUrl */
+/* global clientId */
+/* global redirectUri */
+/* global OktaAuth */
+
 (function () {
   var config = {
-    "baseUrl": "https://hw.trexcloud.com",
-    "clientId": "JFClyRhfHlUy86dijbMc",
-    "clientSecret": "VKQXIeuqr3OIuzazBHjDWSlkoqYN-AINQWqm7nSk",
-    "redirectUri": "http://localhost:12234/callback"
+    "baseUrl": baseUrl,
+    "clientId": clientId,
+    "redirectUri": redirectUri
   };
 
   var oa = new OktaAuth({
@@ -18,7 +22,6 @@
   }
 
   document.getElementById('loginWithOkta').addEventListener('click', function () {
-    console.log('do login');
     doLogin();
   });
 

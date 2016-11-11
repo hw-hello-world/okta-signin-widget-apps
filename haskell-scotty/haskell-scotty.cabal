@@ -10,8 +10,8 @@ maintainer:          example@example.com
 copyright:           2016 Author name here
 category:            Web
 build-type:          Simple
--- extra-source-files:
 cabal-version:       >=1.10
+extra-source-files:  app/config.json
 
 library
   hs-source-dirs:      src
