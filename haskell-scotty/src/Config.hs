@@ -18,8 +18,6 @@ import qualified Data.Text.Lazy.Encoding     as T
 -- Config Data
 ------------------------------
 
--- FIXME: include config.json in build result
---
 configFile :: String
 configFile = "data/config.json"
 

@@ -1,0 +1,8 @@
+* Notes
+
+  - scotty is easy to use but seems in experimental status
+  - [ ] when it will expire when cookie is "expires session"?
+
+* Links
+  - [[http://adit.io/posts/2013-04-15-making-a-website-with-haskell.html][Making A Website With Haskell]] - a little out-of-date but really an
+    good for begining.

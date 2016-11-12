@@ -30,11 +30,12 @@ import           Text.Blaze.Html.Renderer.Text        (renderHtml)
 import           Text.Blaze.Html5                     (label, (!))
 import qualified Text.Blaze.Html5                     as H
 import qualified Text.Blaze.Html5.Attributes          as H
+import           Web.Cookie
 import           Web.Scotty
 
 import           Config
+import           Sessions
 import           Types
-
 
 ------------------------------
 -- App
@@ -53,19 +54,34 @@ app :: Config -> IO ()
 app c = scotty 12234 $ do
   middleware logStdoutDev
   middleware $ staticPolicy (noDots >-> addBase "public")
-  get "/" $ html . renderHtml $ homePage
+  get "/" $ do
+    cookies <- getCookies'
+    liftIO $ print cookies
+    html . renderHtml $ homePage (findUserFromCookies cookies)
   get "/login-okta" $ html . renderHtml $ loginOktaPage c
   get "/logout" $ text "FIXME: logout"
   get "/callback" $ do
     -- FIXME: code may not exists when the request error and it will contain
     --        error=access_denied&error_description=User+is+not+assigned+to+the+client+application
-    --
+    --        turns out it is an issue at local server !!???
     code <- param "code"
     state <- param "state"
-    _ <- liftIO (fetchToken c code state)
-    html . renderHtml $ callbackPage code state
+    r' <- liftIO (fetchToken c code state)
+    case r' of
+      Right authResult -> do
+        setCookie "okta-user" (BS.toStrict $ BS.pack $ email $ claims authResult)
+        redirect "/"
+      Left e -> html . renderHtml $ H.toHtml e
+    -- html . renderHtml $ callbackPage code state
 
 
+type UserEmail = Text
+
+findUserFromCookies :: Maybe CookiesText -> Maybe UserEmail
+findUserFromCookies Nothing = Nothing
+findUserFromCookies (Just cs) = let u = filter (\(a, _) -> a == "okta-user") cs
+                                in
+                                  if null u then Nothing else Just $ snd $ head u
 
 --
 -- 1. [ ] read cookie and verify state
@@ -74,7 +90,7 @@ app c = scotty 12234 $ do
 -- 4. [ ] verify nonce from cookie
 -- 5. [ ] set cookie and redirect to home page
 --
-fetchToken :: Config -> Text -> Text -> IO ()
+fetchToken :: Config -> Text -> Text -> IO (Either Text AuthResult)
 fetchToken c code state = do
   req <- parseRequest (baseUrl c ++ "/oauth2/v1/token")
   resp <- httpLbs (updateReq req)
@@ -83,11 +99,11 @@ fetchToken c code state = do
   if rStatus == status200 then do
     t <- parseSuccessResponse rawBody
     case t of
-      Right authResult -> print authResult
-      Left e -> print e
-  else if rStatus == status401 then print (decode rawBody :: Maybe ErrorResponse)
-  else print "not handled response status code"
-  print rawBody
+      Right authResult -> return (Right authResult)
+      Left e -> print e >> return (Left $ T.pack e)
+  else if rStatus == status401 then print (decode rawBody :: Maybe ErrorResponse) >> return (Left "401 status")
+  else putStrLn "not handled response status code" >> return (Left "NONE status")
+  -- print rawBody
   where updateReq = setM . setH . setQ
         setM = setRequestMethod "POST"
         setH = setRequestHeaders [ (hAuthorization, BS.toStrict (BS.pack "Basic: " `BS.append` B64.encode (BS.pack $ clientId c ++ ":" ++ clientSecret c)))
@@ -121,17 +137,17 @@ oktaSignInTheme = fromString $ oktaSignInBase ++ "/css/okta-theme.css"
 -- HTML
 ------------------------------
 
-homePage :: H.Html
-homePage = H.html $ do
+homePage :: Maybe UserEmail -> H.Html
+homePage Nothing = H.html $ do
     H.head $ css "/css/main.css"
     H.h1 "Demo - Okta Signin Widget"
     H.ul $ do
       H.li $ H.a ! H.href "/login-okta" $ "Login Okta"
       H.li $ H.a ! H.href "/login-custom" $ "Login Custom"
 
-    --css oktaSignInCss
-    --css oktaSignInTheme
-    --js oktaSignInJs
+homePage (Just e) = H.html $ do
+    H.head $ css "/css/main.css"
+    H.h1 $ H.toHtml ("Welcome " `T.append` e)
 
 loginOktaPage :: Config -> H.Html
 loginOktaPage c = H.html $ do

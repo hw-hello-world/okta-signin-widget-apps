@@ -41,6 +41,8 @@ executable haskell-scotty-exe
                      , http-conduit
                      , http-types
                      , scotty
+                     , cookie
+                     , binary
                      , text
                      , wai
                      , wai-extra
