@@ -1,25 +1,26 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell   #-}
 
-module Lib where
+module Types where
 
 import Data.ByteString.Lazy (ByteString)
-
-import Data.Aeson (decode, FromJSON, parseJSON)
+import Data.Text.Lazy (Text)
+import qualified Data.Text.Lazy as T
+import qualified Data.Text.Lazy.Encoding as T
+import Data.Aeson (decode, FromJSON, parseJSON, eitherDecode)
 import Data.Aeson.Types
 import           Data.Aeson.TH                 (defaultOptions, deriveJSON)
 import qualified Data.ByteString.Base64.Lazy as B64
-import qualified Data.ByteString.Lazy.Char8 as BS
 
-data TokenResponse = TokenResponse { accessToken :: String
+data SuccessResponse = SuccessResponse { accessToken :: String
                                    , tokenType :: String
                                    , expiresIn :: Int
                                    , scope :: String
-                                   , idToken :: String
+                                   , idToken :: Text
                                    } deriving (Show)
 
-instance FromJSON TokenResponse where
-    parseJSON (Object v) = TokenResponse
+instance FromJSON SuccessResponse where
+    parseJSON (Object v) = SuccessResponse
                            <$> v .: "access_token"
                            <*> v .: "token_type"
                            <*> v .: "expires_in"
@@ -44,10 +45,10 @@ data Claims = Claims { sub :: String
                      , ver :: Int
                      , iss :: String
                      , aud :: String
-                     , iat :: String
+                     , iat :: Int
                      , exp :: Int
                      , jti :: String
-                     , amr :: String
+                     , amr :: [String]
                      , idp :: String
                      , nonce :: String
                      --, auth_time :: Int
@@ -55,17 +56,20 @@ data Claims = Claims { sub :: String
                      } deriving (Show)
 $(deriveJSON defaultOptions ''Claims)
 
+data AuthResult = AuthResult { authResp :: SuccessResponse
+                             , claims :: Claims
+                             } deriving (Show)
 
-parseSuccessResponse :: ByteString -> IO (Either String Claims)
+parseSuccessResponse :: ByteString -> IO (Either String AuthResult)
 parseSuccessResponse respBody = case decode respBody of
   Just tokenResp -> let idToken' = idToken tokenResp
-                        claimsCode = tail (dropWhile (/= '.') idToken')
+                        xs = T.splitOn "." idToken'
                     in
-                      do
-                      print idToken'
-                      print claimsCode
-                      print $ B64.decodeLenient (BS.pack claimsCode)
-                      case decode $ B64.decodeLenient (BS.pack claimsCode) of
-                        Just c -> return $ Right c
-                        Nothing -> return $ Left "Cant parse claims from response body"
+                      if length xs <= 1 then return (Left "Invalid idToken")
+                      else do
+                          let claimsCode = xs !! 1
+                          let claimsResult = eitherDecode $ B64.decodeLenient (T.encodeUtf8 claimsCode)
+                          case claimsResult of
+                            Right c -> return (Right $ AuthResult tokenResp c)
+                            Left e -> return (Left e)
   Nothing -> return $ Left "Cant parse response body"

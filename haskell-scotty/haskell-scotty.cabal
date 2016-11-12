@@ -15,7 +15,8 @@ extra-source-files:  app/config.json
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lib
+  exposed-modules:     Config
+                     , Types
   build-depends:       base >= 4.7 && < 5
                      , aeson
                      , bytestring

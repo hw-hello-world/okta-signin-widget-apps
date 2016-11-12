@@ -1,5 +1,4 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TemplateHaskell   #-}
 
 
 module Main where
@@ -17,9 +16,7 @@ import           Data.Aeson.TH                 (defaultOptions, deriveJSON)
 
 import Network.HTTP.Types.Header
 import Network.HTTP.Simple
---import Network.HTTP.Client
 import qualified Data.ByteString.Lazy.Char8 as BS
---import qualified Data.ByteString.Char8 as BS
 
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -33,69 +30,9 @@ import Network.Wai.Middleware.RequestLogger
 import Network.Wai.Middleware.Static
 import Data.String
 
--- import Lib
+import Config
+import Types
 
-------------------------------
--- Config Data
-------------------------------
-
-data Config = Config { baseUrl :: String
-                     , clientId :: String
-                     , clientSecret :: String
-                     , redirectUri :: String
-                     } deriving (Show)
-
-$(deriveJSON defaultOptions ''Config)
-
-
-data Claims = Claims { sub :: String
-                     , email :: String
-                     , ver :: Int
-                     , iss :: String
-                     , aud :: String
-                     , iat :: String
-                     , exp :: Int
-                     , jti :: String
-                     , amr :: String
-                     , idp :: String
-                     , nonce :: String
-                     --, auth_time :: Int
-                     --, at_hash :: String
-                     } deriving (Show)
-$(deriveJSON defaultOptions ''Claims)
-
-data TokenResponse = TokenResponse { accessToken :: String
-                                   , tokenType :: String
-                                   , expiresIn :: Int
-                                   , scope :: String
-                                   , idToken :: String
-                                   } deriving (Show)
-
-instance FromJSON TokenResponse where
-    parseJSON (Object v) = TokenResponse
-                           <$> v .: "access_token"
-                           <*> v .: "token_type"
-                           <*> v .: "expires_in"
-                           <*> v .: "scope"
-                           <*> v .: "id_token"
-    parseJSON _          = mempty
-
-
-data ErrorResponse = ErrorResponse { errorCode :: String
-                                   , errorDescription :: String
-                                   } deriving (Show)
-
-instance FromJSON ErrorResponse where
-    parseJSON (Object v) = ErrorResponse
-                           <$> v .: "error"
-                           <*> v .: "error_description"
-    parseJSON _          = mempty
-
-
--- FIXME: include config.json in build result
---
-configFile :: String
-configFile = "/Users/haisheng.wu/hw-hello-world/okta-signin-widget/haskell-scotty/app/config.json"
 
 ------------------------------
 -- App
@@ -130,7 +67,7 @@ app c = scotty 12234 $ do
 
 --
 -- 1. [ ] read cookie and verify state
--- 2. [ ] fetch token
+-- 2. [X] fetch token
 -- 3. [ ] error handling
 -- 4. [ ] verify nonce from cookie
 -- 5. [ ] set cookie and redirect to home page
@@ -142,19 +79,12 @@ fetchToken c code state = do
   let rawBody = getResponseBody resp
   let rStatus = getResponseStatus resp
   if rStatus == status200 then do
-    t <- return (decode rawBody :: Maybe TokenResponse)
+    t <- parseSuccessResponse rawBody
     case t of
-      Just tokenResp -> do
-        let idToken' = idToken tokenResp
-        let claimsCode = dropWhile (== '.') idToken'
-        -- FIXME: got "invalid padding" with decode but decodeLenient is fine but its result cant be decode to JSON type
-        let claims = B64.decodeLenient (BS.pack claimsCode)
-        print claims
-        print (decode claims :: Maybe Claims)
-        print tokenResp
-      Nothing -> putStrLn "Cant parse success response"
+      Right authResult -> print authResult
+      Left e -> print e
   else if rStatus == status401 then print (decode rawBody :: Maybe ErrorResponse)
-  else print rawBody
+  else print "not handled response status code"
   print rawBody
   where updateReq = setM . setH . setQ
         setM = setRequestMethod "POST"
