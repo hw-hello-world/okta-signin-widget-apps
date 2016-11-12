@@ -3,20 +3,21 @@
 
 module Types where
 
-import Data.ByteString.Lazy (ByteString)
-import Data.Text.Lazy (Text)
-import qualified Data.Text.Lazy as T
-import qualified Data.Text.Lazy.Encoding as T
-import Data.Aeson (decode, FromJSON, parseJSON, eitherDecode)
-import Data.Aeson.Types
-import           Data.Aeson.TH                 (defaultOptions, deriveJSON)
+import           Data.Aeson                  (FromJSON, decode, eitherDecode,
+                                              parseJSON)
+import           Data.Aeson.TH               (defaultOptions, deriveJSON)
+import           Data.Aeson.Types
 import qualified Data.ByteString.Base64.Lazy as B64
+import           Data.ByteString.Lazy        (ByteString)
+import           Data.Text.Lazy              (Text)
+import qualified Data.Text.Lazy              as T
+import qualified Data.Text.Lazy.Encoding     as T
 
 data SuccessResponse = SuccessResponse { accessToken :: String
-                                   , tokenType :: String
-                                   , expiresIn :: Int
-                                   , scope :: String
-                                   , idToken :: Text
+                                   , tokenType       :: String
+                                   , expiresIn       :: Int
+                                   , scope           :: String
+                                   , idToken         :: Text
                                    } deriving (Show)
 
 instance FromJSON SuccessResponse where
@@ -29,7 +30,7 @@ instance FromJSON SuccessResponse where
     parseJSON _          = mempty
 
 
-data ErrorResponse = ErrorResponse { errorCode :: String
+data ErrorResponse = ErrorResponse { errorCode        :: String
                                    , errorDescription :: String
                                    } deriving (Show)
 
@@ -40,16 +41,16 @@ instance FromJSON ErrorResponse where
     parseJSON _          = mempty
 
 
-data Claims = Claims { sub :: String
+data Claims = Claims { sub   :: String
                      , email :: String
-                     , ver :: Int
-                     , iss :: String
-                     , aud :: String
-                     , iat :: Int
-                     , exp :: Int
-                     , jti :: String
-                     , amr :: [String]
-                     , idp :: String
+                     , ver   :: Int
+                     , iss   :: String
+                     , aud   :: String
+                     , iat   :: Int
+                     , exp   :: Int
+                     , jti   :: String
+                     , amr   :: [String]
+                     , idp   :: String
                      , nonce :: String
                      --, auth_time :: Int
                      --, at_hash :: String
@@ -57,7 +58,7 @@ data Claims = Claims { sub :: String
 $(deriveJSON defaultOptions ''Claims)
 
 data AuthResult = AuthResult { authResp :: SuccessResponse
-                             , claims :: Claims
+                             , claims   :: Claims
                              } deriving (Show)
 
 parseSuccessResponse :: ByteString -> IO (Either String AuthResult)

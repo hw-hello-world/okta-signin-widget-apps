@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 
-import Types
+import           Types
 
 
 -- FIXME: really test spec

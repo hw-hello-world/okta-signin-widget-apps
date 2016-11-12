@@ -3,35 +3,37 @@
 
 module Main where
 
-import Data.List
-import qualified Data.ByteString.Base64.Lazy as B64
-import Network.HTTP.Types.Status
-import Data.ByteString.Lazy (ByteString)
-import Data.Monoid (mempty)
-import Control.Arrow (second)
-import Control.Monad.IO.Class (liftIO)
-import Data.Aeson (decode, FromJSON, parseJSON)
-import Data.Aeson.Types
-import           Data.Aeson.TH                 (defaultOptions, deriveJSON)
+import           Control.Arrow                        (second)
+import           Control.Monad.IO.Class               (liftIO)
+import           Data.Aeson                           (FromJSON, decode,
+                                                       parseJSON)
+import           Data.Aeson.TH                        (defaultOptions,
+                                                       deriveJSON)
+import           Data.Aeson.Types
+import qualified Data.ByteString.Base64.Lazy          as B64
+import           Data.ByteString.Lazy                 (ByteString)
+import           Data.List
+import           Data.Monoid                          (mempty)
+import           Network.HTTP.Types.Status
 
-import Network.HTTP.Types.Header
-import Network.HTTP.Simple
-import qualified Data.ByteString.Lazy.Char8 as BS
+import qualified Data.ByteString.Lazy.Char8           as BS
+import           Network.HTTP.Simple
+import           Network.HTTP.Types.Header
 
-import Data.Text (Text)
-import qualified Data.Text as T
-import qualified Data.Text.Encoding as T
-import Web.Scotty
-import Text.Blaze.Html5 ((!), label)
-import qualified Text.Blaze.Html5 as H
-import qualified Text.Blaze.Html5.Attributes as H
-import Text.Blaze.Html.Renderer.Text (renderHtml)
-import Network.Wai.Middleware.RequestLogger
-import Network.Wai.Middleware.Static
-import Data.String
+import           Data.String
+import           Data.Text                            (Text)
+import qualified Data.Text                            as T
+import qualified Data.Text.Encoding                   as T
+import           Network.Wai.Middleware.RequestLogger
+import           Network.Wai.Middleware.Static
+import           Text.Blaze.Html.Renderer.Text        (renderHtml)
+import           Text.Blaze.Html5                     (label, (!))
+import qualified Text.Blaze.Html5                     as H
+import qualified Text.Blaze.Html5.Attributes          as H
+import           Web.Scotty
 
-import Config
-import Types
+import           Config
+import           Types
 
 
 ------------------------------
