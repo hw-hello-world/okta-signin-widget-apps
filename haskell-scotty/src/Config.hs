@@ -20,7 +20,7 @@ import qualified Data.ByteString.Lazy.Char8 as BS
 -- FIXME: include config.json in build result
 --
 configFile :: String
-configFile = "/Users/haisheng.wu/hw-hello-world/okta-signin-widget/haskell-scotty/app/config.json"
+configFile = "data/config.json"
 
 data Config = Config { baseUrl :: String
                      , clientId :: String

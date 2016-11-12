@@ -1,7 +1,10 @@
 default: start
 
-start:
-	stack build && stack exec haskell-scotty-exe
+start: build
+	stack exec haskell-scotty-exe
+
+build:
+	stack build
 
 test:
 	stack test

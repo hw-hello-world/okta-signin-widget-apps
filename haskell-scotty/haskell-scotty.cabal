@@ -11,12 +11,14 @@ copyright:           2016 Author name here
 category:            Web
 build-type:          Simple
 cabal-version:       >=1.10
-extra-source-files:  app/config.json
 
+Data-files: data/config.json
+            data/config.sample.json
+           
 library
   hs-source-dirs:      src
   exposed-modules:     Config
-                     , Types
+                       Types
   build-depends:       base >= 4.7 && < 5
                      , aeson
                      , bytestring
