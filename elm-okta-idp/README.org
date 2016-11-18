@@ -23,14 +23,14 @@
 #+BEGIN_SRC plantuml :file data/elm-arch-mvc.png :results output silent
 title: MVC
 
+[Elm Platform] -down-> [(Model, Cmd Msg)] : update
+note top: 1. "update : Msg -> Model -> (Model, Cmd Msg)"\n2. Could creat infinite loop possiblely (see hello-world/)
+[(Model, Cmd Msg)] -right-> [Msg] : generate
+[(Model, Cmd Msg)] -right-> [Model]: generate
 [Model] -> [View] : view
 note top: "view : Model -> Html Msg"
-[View] ..> [Msg] : cmd
+[View] -> [Msg] : generate
 [Msg] ..> [Elm Platform] : listenTo
-[Elm Platform] -> [(Model, Cmd Msg)] : update
-note top: 1. "update : Msg -> Model -> (Model, Cmd Msg)"\n2. Could creat infinite loop possiblely (see hello-world/)
-[(Model, Cmd Msg)] ..> [Msg] : cmd
-[(Model, Cmd Msg)] -> [Model]: generate
 
 #+END_SRC
 
@@ -42,10 +42,9 @@ note top: 1. "update : Msg -> Model -> (Model, Cmd Msg)"\n2. Could creat infinit
 #+BEGIN_SRC plantuml :file data/elm-arch-interop-js.png :results silent
 title: Interop JS
 
-[(Model, Cmd Msg)] -> [Cmd Msg]: generate
+[(Model, Cmd Msg)] -down-> [Cmd Msg]: generate
 [Cmd Msg] ..> [JS] : listenTo
 [JS] -> [Sub Msg] : send
-[Cmd Msg] -> [Msg]: generate
 [Sub Msg] -> [Msg]: generate
 
 #+END_SRC
