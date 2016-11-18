@@ -19,10 +19,10 @@
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "webpack": "^1.13.3",
+    "elm-webpack-loader": "^3.0.6",
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "@okta/okta-signin-widget": "^1.8.0",
-    "elm-webpack-loader": "^3.0.6"
   }
 }
