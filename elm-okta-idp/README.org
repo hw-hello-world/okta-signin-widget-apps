@@ -51,8 +51,8 @@ title: Interop JS
 #+END_SRC
 
 
-* TODO Tasks [3/3]
-
+* DONE Tasks [3/3]
+  CLOSED: [2016-11-18 Fri 14:01]
 
   1. MAYBE: Webpack v.s. gulp ??
   2. [X] pure ELM by creating FFI OktaSignin ?
@@ -172,9 +172,12 @@ deactivate JS
   - [[http://www.gizra.com/content/thinking-choosing-elm/][Thinking choosing Elm]]
 
 * Epilogue
-  1. unmature. `0.18`
+  1. API may not be stable.(maybe figure out the changelogs)
   2. ecosystem - ports or rewrite in Elm
   3. small community, friendly and many experties in community
   4. single global `update` for Cmd handler
   5. [[https://github.com/elm-guides/elm-for-js/blob/master/Where%2520Did%2520Null%2520And%2520Undefined%2520Go.md][`null` and `undefined`]]
   6. `ports` is for JS interop. otherwise is discourage.
+  7. infinit loop. solutions from complier though it is not hard to
+     detect manually.?
+  8. in general, it has a lot FUN!
