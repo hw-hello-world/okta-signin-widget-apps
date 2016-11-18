@@ -1,5 +1,7 @@
 /* global OktaSignIn */
 
+var Elm = require('./Main.elm');
+
 var baseUrl = 'https://hw.trexcloud.com/';
 var redirectUri = 'http://localhost:12234/';
 
@@ -17,9 +19,13 @@ var okta = window.okta = {
   })
 };
 
-function loginSuccess(xss) {
-  var portResponse = {};
+const KEY_OKTA_USER = 'okta-user';
 
+function refresh() {
+  window.location.reload();
+}
+
+function loginSuccess(xss) {
   if (xss.status === 'SUCCESS') {
     var idTokenObj = xss[0],
         user = {email: idTokenObj.claims.email,
@@ -27,34 +33,37 @@ function loginSuccess(xss) {
                 token: idTokenObj.idToken,
                 expiresAt: idTokenObj.expiresAt
                };
-    portResponse = {
-      profile: user,
-      error: ""
-    };
-
+    localStorage.setItem(KEY_OKTA_USER, JSON.stringify(user));
+    refresh();
   } else {
-    portResponse = {
-      profile: undefined,
-      error: JSON.stringify(arguments)
-    };
+    console.error('Login failed: ', xss);
   }
-
-  app.ports.loginResult.send(portResponse);
 }
 
 function logError() {
-  app.ports.loginResult.send({
-    profile: undefined,
-    error: JSON.stringify(arguments)
-  });
+  console.error(arguments);
 }
 
 function login() {
   okta.si.renderEl({el: '#main'}, loginSuccess, logError);
 }
 
-var app = Elm.ElmMain.fullscreen();
+function logout() {
+  localStorage.removeItem(KEY_OKTA_USER);
+}
+
+var oktaUser = localStorage.getItem(KEY_OKTA_USER);
+
+if (oktaUser) {
+  oktaUser = JSON.parse(oktaUser);
+}
+
+var app = Elm.ElmMain.fullscreen({loginUser: oktaUser});
 
 app.ports.login.subscribe(() => {
   login();
+});
+
+app.ports.logout.subscribe(() => {
+  logout();
 });

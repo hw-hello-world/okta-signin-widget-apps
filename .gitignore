@@ -1,6 +1,8 @@
 ## JavaScript
 
+npm-debug.log
 node_modules
+
 config.json
 config.trex.json
 dist

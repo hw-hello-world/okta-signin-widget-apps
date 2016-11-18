@@ -8,14 +8,15 @@
    - [ ] Understand React Router and Redux
 ** TODO Closure
 ** TODO Haskell
-   - [ ] mustache binding?
+   - [[https://hackage.haskell.org/package/mustache][mustache binding]]?
+   - [[https://www.haskell.org/communities/05-2016/html/report.html][Haskell Communities and Activities Report - 05-2016]]
 
 *** warp/wai
-*** Scotty
-*** Servant + [Vanilla JS or jQuery]
-*** Yesod?
-*** Snap?
-*** Spock?
+*** [[https://github.com/scotty-web][Scotty]]
+*** [[http://haskell-servant.github.io/][Servant]] + [Vanilla JS or jQuery]
+*** [[http://www.yesodweb.com/][Yesod]]?
+*** [[http://snapframework.com/][Snap]]?
+*** [[https://www.spock.li/][Spock]]
 
 
 * Extract logic as Plugins

@@ -4,20 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "init": "elm package install",
-      "clean": "rm -rf dist"
+    "build": "rm -rf dist && webpack",
+    "start": "webpack-dev-server --progress --colors --port 12234 --content-base dist/"
   },
   "author": "Haisheng Wu <haisheng.wu@okta.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "del": "^2.2.2",
     "elm": "^0.17.1",
-    "gulp": "^3.9.1",
-    "gulp-connect": "^5.0.0",
-    "gulp-elm": "^0.5.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-util": "^3.0.7"
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "@okta/okta-signin-widget": "^1.8.0"
+    "@okta/okta-signin-widget": "^1.8.0",
+    "elm-webpack-loader": "^3.0.6"
   }
 }
