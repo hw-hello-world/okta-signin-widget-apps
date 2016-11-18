@@ -9,8 +9,10 @@
 * Understand Elm
 
   1. ~view : Model -> Html msg~ is one direction from Model to View
-  2. ~Html msg~ means View could generate ~Msg~ and ~update: Msg ->
-     Model -> Model~ will turn it into an /new/ Model
+  2. ~Html msg~ means View could generate ~Msg~ and ~update~ will turn
+     it into an /new/ Model
+     - ~update: Msg -> Model -> Model~
+     - ~update: Msg -> Model -> (Model, Cmd msg)~
   3. ~init~ create an inital ~Model~
   4. ~Model~ is actually sort of ~State~
 
@@ -23,10 +25,11 @@ title: MVC
 
 [Model] -> [View] : view
 note top: "view : Model -> Html Msg"
-[View] ..> [Msg]
+[View] ..> [Msg] : cmd
 [Msg] ..> [Elm Platform] : listenTo
 [Elm Platform] -> [(Model, Cmd Msg)] : update
-note top: "update : Msg -> Model -> (Model, Cmd Msg)
+note top: 1. "update : Msg -> Model -> (Model, Cmd Msg)"\n2. Could creat infinite loop possiblely (see hello-world/)
+[(Model, Cmd Msg)] ..> [Msg] : cmd
 [(Model, Cmd Msg)] -> [Model]: generate
 
 #+END_SRC
@@ -167,3 +170,11 @@ deactivate JS
 
   - [[http://tech.noredink.com/][NoRedInk Blog]]
   - [[http://www.gizra.com/content/thinking-choosing-elm/][Thinking choosing Elm]]
+
+* Epilogue
+  1. unmature. `0.18`
+  2. ecosystem - ports or rewrite in Elm
+  3. small community, friendly and many experties in community
+  4. single global `update` for Cmd handler
+  5. [[https://github.com/elm-guides/elm-for-js/blob/master/Where%2520Did%2520Null%2520And%2520Undefined%2520Go.md][`null` and `undefined`]]
+  6. `ports` is for JS interop. otherwise is discourage.
