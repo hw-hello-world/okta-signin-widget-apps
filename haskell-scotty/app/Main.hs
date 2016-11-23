@@ -48,8 +48,6 @@ main = do
     Nothing -> error "Can not read config file"
     Just c -> app c
 
--- FIXME: session
---
 app :: Config -> IO ()
 app c = scotty 12234 $ do
   middleware logStdoutDev
@@ -59,7 +57,7 @@ app c = scotty 12234 $ do
     liftIO $ print cookies
     html . renderHtml $ homePage (findUserFromCookies cookies)
   get "/login-okta" $ html . renderHtml $ loginOktaPage c
-  get "/logout" $ text "FIXME: logout"
+  get "/logout" $ text "FIXME: logout by clean up session."
   get "/callback" $ do
     -- FIXME: code may not exists when the request error and it will contain
     --        error=access_denied&error_description=User+is+not+assigned+to+the+client+application
