@@ -6,7 +6,7 @@ module.exports = {
   // mode: 'development',
   entry: {
     bundle: './src/index.js',
-    'bundle-test': './src/test.js',
+    'bundle-test': ['babel-polyfill', './src/test.js'],
   },
   output: {
     filename: '[name].pack.js',
@@ -25,16 +25,8 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: [
-            ['env', {
-              targets: {
-                browsers: "> 0.25%, not dead",
-              },
-              useBuiltIns: 'entry',
-              debug: true
-            }]
-          ],
-          // plugins: ['transform-runtime']
+          presets: ['env'],
+          plugins: ['transform-runtime']
         }
       }
     ]
