@@ -2,7 +2,7 @@
     const baseUrl = 'http://www.example.com';
 
     const form = document.createElement('form');
-    form.method = 'POST';
+    form.method = 'GET';
     form.action = baseUrl;
 
     var input1 = document.createElement('input');
