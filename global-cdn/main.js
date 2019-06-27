@@ -1,8 +1,10 @@
-const od = 'https://rain.okta1.com';
+const od1 = 'https://rain.okta1.com';
+const od = 'https://ganeshtest2.trexcloud.com/';
+
 const signIn = new OktaSignIn({
   "baseUrl": od,
   "logoText": "Windico",
-  "language": "en",
+  "language": "zh-CN",
   "features": {
     "securityImage": true,
     "router": true,
@@ -13,7 +15,9 @@ const signIn = new OktaSignIn({
     { "id": "bbb", "type": "google" }
   ],
   "assets": {
-    "baseUrl": "/"
+    // "baseUrl": "https://globaltrex.oktacdn.com/okta-signin-widget/2.20.1"
+    "baseUrl": "https://global.oktacdn.com/okta-signin-widget/2.20.1/"
+    // "baseUrl": "https://d1ril57tlz9ev4.cloudfront.net/okta-signin-widget/2.20.1"
   }
 });
 
