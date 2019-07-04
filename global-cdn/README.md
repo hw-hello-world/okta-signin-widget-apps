@@ -7,3 +7,7 @@
 1. `yarn start`
 2. open <http://localhost:4001> to show all test samples.
 3. open <http://localhost:4001/ok1.html> for sample using ok1 cdn.
+
+## TODO
+
+- [ ] to easily play with any version. (maybe an client/serve application)

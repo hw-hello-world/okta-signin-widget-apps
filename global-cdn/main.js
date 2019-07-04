@@ -4,7 +4,7 @@ const od = 'https://ganeshtest2.trexcloud.com/';
 const signIn = new OktaSignIn({
   "baseUrl": od,
   "logoText": "Windico",
-  "language": "zh-CN",
+  "language": "zh-TW",
   "features": {
     "securityImage": true,
     "router": true,
@@ -15,9 +15,10 @@ const signIn = new OktaSignIn({
     { "id": "bbb", "type": "google" }
   ],
   "assets": {
-    // "baseUrl": "https://globaltrex.oktacdn.com/okta-signin-widget/2.20.1"
-    "baseUrl": "https://global.oktacdn.com/okta-signin-widget/2.20.1/"
-    // "baseUrl": "https://d1ril57tlz9ev4.cloudfront.net/okta-signin-widget/2.20.1"
+    //"baseUrl": "https://globaltrex.oktacdn.com/okta-signin-widget/2.20.0"
+    "baseUrl": "https://global.oktacdn.com/okta-signin-widget/2.21.0/"
+    //"baseUrl": "https://d1ril57tlz9ev4.cloudfront.net/okta-signin-widget/2.20.1"
+    //"baseUrl": "https://d3urxzuljbb3j5.cloudfront.net/okta-signin-widget/2.9"
   }
 });
 
