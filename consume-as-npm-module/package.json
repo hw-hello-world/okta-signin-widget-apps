@@ -20,6 +20,6 @@
     "babel-runtime": "^6.26.0",
     "copy-webpack-plugin": "^4.6.0",
     "webpack": "3.5.4",
-    "webpack-bundle-analyzer": "^3.0.3"
+    "webpack-bundle-analyzer": "^3.3.2"
   }
 }
