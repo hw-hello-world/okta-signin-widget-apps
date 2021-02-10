@@ -15,6 +15,7 @@ const signIn = new OktaSignIn({
     { "id": "bbb", "type": "google" }
   ],
   "assets": {
+    // baseUrl: 'https://global.oktacdn.com/okta-signin-widget/4.4.0'
     //"baseUrl": `http://localhost:9123/okta-signin-widget/2.9.0/`,
     //"baseUrl": "https://globaltrex.oktacdn.com/okta-signin-widget/2.20.0"
     //"baseUrl": "https://global.oktacdn.com/okta-signin-widget/3.9.1/"
